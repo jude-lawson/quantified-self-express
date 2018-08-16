@@ -9,7 +9,7 @@ const database = require('knex')(configuration);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('port', process.env.PORT || 8000);
-app.local.title = 'Quantified Self Express API';
+app.locals.title = 'Quantified Self Express API';
 
 
 app.listen(app.get('port'), () => {
