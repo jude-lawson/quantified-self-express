@@ -13,8 +13,13 @@ describe('Food Requests', () => {
       chai.request(app)
         .get('/api/v1/foods')
         .end((error, response) => {
-          expect(response.body).to.eq(foods)
+          if (error) {
+            console.error(error);
+          }
+
+          expect(response.body).to.deep.eq(foods)
           expect(response).to.have.status(200);
+
           done();
         });
     });
