@@ -7,6 +7,20 @@ module.exports = {
     migrations: {
       directory: './db/migrations'
     },
+    seeds: {
+      directory: './db/seeds/development'
+    },
+    userNullAsDefault: true
+  },
+  test: {
+    client: 'pg',
+    connection: 'postgres://localhost/quantified_self_express_test',
+    migrations: {
+      directory: './db/migrations'
+    },
+    seeds: {
+      directory: './db/seeds/development'
+    },
     userNullAsDefault: true
   },
   production: {
