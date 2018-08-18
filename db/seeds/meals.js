@@ -1,4 +1,4 @@
-const meals = require('../../fixtures/meals')
+const meals = require('../../fixtures/development/meals')
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
