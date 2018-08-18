@@ -2,7 +2,7 @@ import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../app';
 
-import meals from '../db/fixtures/test/meals';
+import meals from './fixtures/meals';
 
 chai.use(chaiHttp);
 
@@ -17,6 +17,7 @@ describe('Meal Requests', () => {
           }
 
           expect(response).to.have.status(200);
+          console.log(response.body)
           expect(response.body).to.deep.eq(meals);
           done();
         });

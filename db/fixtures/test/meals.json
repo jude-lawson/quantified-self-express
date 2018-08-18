@@ -1,29 +1,19 @@
 [
- {
-  "id": 1,
-  "name": "Breakfast",
-  "foods": [
-    {
-      "id": 1,
-      "name": "Banana",
-      "calories": 200
-    }
-  ]
- },
- {
-  "id": 2,
-  "name": "Lunch",
-  "foods": [
-    {
-      "id": 3,
-      "name": "Sandwich",
-      "calories": 600
-    },
-    {
-      "id": 4,
-      "name": "Chips",
-      "calories": 800
-    }
-  ]
- }
-]
+  {
+   "id": 1,
+   "name": "Breakfast"
+  },
+  {
+   "id": 2,
+   "name": "Snack"
+  },
+  {
+    "id": 3,
+    "name": "Lunch"
+  },
+  {
+    "id": 4,
+    "name": "Dinner"
+  }
+ ]
+ 
