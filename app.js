@@ -6,6 +6,10 @@ const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
 
+import Food from './models/Food';
+
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('port', process.env.PORT || 8000);
@@ -16,9 +20,7 @@ app.get('/', (request, response) => {
 });
 
 app.get('/api/v1/foods', (request, response) => {
-  database('foods').select()
-    .then(foods => response.status(200).json(foods))
-    .catch(error => console.error(error));
+  Food.getAllFoods().then(foods => response.status(200).json(foods))
 });
 
 // app.get('/api/v1/meals', (request, response) => {
