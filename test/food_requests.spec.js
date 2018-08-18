@@ -1,7 +1,7 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../app'
-import foods from './fixtures/foods'
+import foods from '../db/fixtures/test/foods'
 
 chai.use(chaiHttp);
 
