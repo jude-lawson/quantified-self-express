@@ -2,7 +2,7 @@ import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../app';
 
-import meals from './fixtures/meals';
+import meals from '../fixtures/for_tests/meals';
 
 chai.use(chaiHttp);
 

@@ -12,6 +12,17 @@
  },
  {
   "id": 2,
+  "name": "Snack",
+  "foods": [
+    {
+      "id": 2,
+      "name": "Cookie",
+      "calories": 600
+    }
+  ]
+ },
+ {
+  "id": 3,
   "name": "Lunch",
   "foods": [
     {
