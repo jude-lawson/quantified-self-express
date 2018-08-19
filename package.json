@@ -7,9 +7,10 @@
     "babel-node": "babel-node",
     "clean": "rm -rf build",
     "build": "yarn clean && yarn babel -d ./build ./src -s",
-    "start": "nodemon --exec yarn run babel-node -- ./app.js",
-    "start:debug": "nodemon --exec yarn run babel-node --inspect -- ./app.js",
-    "debug:test": "export NODE_ENV=test && nodemon --exec yarn run babel-node --inspect -- ./app.js",
+    "start": "nodemon --exec yarn run babel-node -- ./src/app.js",
+    "start:debug": "nodemon --exec yarn run babel-node --inspect -- ./src/app.js",
+    "debug": "nodemon --exec yarn run babel-node --inspect -- ./src/app.js",
+    "debug:test": "export NODE_ENV=test && nodemon --exec yarn run babel-node --inspect -- ./src/app.js",
     "test": "sleep 1 && mocha --require babel-polyfill --require babel-register --exit",
     "test:notime": "sleep 1 && mocha --require babel-polyfill --require babel-register --no-timeouts --exit"
   },
