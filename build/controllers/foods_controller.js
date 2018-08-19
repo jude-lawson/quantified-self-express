@@ -52,6 +52,38 @@ var FoodsController = function () {
 
       return index;
     }()
+  }, {
+    key: 'show',
+    value: function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(request, response) {
+        var food_id, food;
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                food_id = request.params.id;
+                _context2.next = 3;
+                return _Food2.default.getSingleFood(food_id);
+
+              case 3:
+                food = _context2.sent;
+
+                response.status(200).json(food);
+
+              case 5:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function show(_x3, _x4) {
+        return _ref2.apply(this, arguments);
+      }
+
+      return show;
+    }()
   }]);
 
   return FoodsController;
