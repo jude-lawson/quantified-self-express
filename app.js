@@ -7,6 +7,7 @@ const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
 
 import FoodsController from './controllers/foods_controller';
+import MealsController from './controllers/meals_controller';
 
 
 
@@ -20,7 +21,11 @@ app.get('/', (request, response) => {
 });
 
 app.get('/api/v1/foods', (request, response) => {
-  FoodsController.index(request,response);
+  FoodsController.index(request, response);
+});
+
+app.get('/api/v1/meals', (request, response) => {
+  MealsController.index(request, response);
 });
 
 // app.get('/api/v1/meals', (request, response) => {
