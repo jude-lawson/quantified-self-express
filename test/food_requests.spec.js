@@ -43,7 +43,7 @@ describe('Food Requests', () => {
       })
       .then(response => {
         expect(response.status).to.eq(200);
-        return response.josn()
+        return response.json()
       })
       .then(parsedResponse => {
         expect(parsedResponse).to.deep.eq({ id: 5, name: 'Dumplings', calories: 900 })
