@@ -7,6 +7,7 @@
     "babel-node": "babel-node",
     "clean": "rm -rf build",
     "build": "yarn clean && yarn babel -d ./build ./src -s",
+    "start:prod-like": "node ./build/app.js",
     "start": "nodemon --exec yarn run babel-node -- ./src/app.js",
     "start:debug": "nodemon --exec yarn run babel-node --inspect -- ./src/app.js",
     "debug": "nodemon --exec yarn run babel-node --inspect -- ./src/app.js",
