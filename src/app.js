@@ -1,7 +1,7 @@
 import 'babel-polyfill';
-const express = require('express');
+import express from 'express';
 const app = express();
-const bodyParser = require('body-parser');
+import bodyParser from 'body-parser';
 
 const environment = process.env.NODE_ENV || 'development';
 const configuration = require('../knexfile')[environment];
