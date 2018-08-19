@@ -6,6 +6,11 @@ const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
 
+import FoodsController from './controllers/foods_controller';
+import MealsController from './controllers/meals_controller';
+
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('port', process.env.PORT || 8000);
@@ -16,13 +21,16 @@ app.get('/', (request, response) => {
 });
 
 app.get('/api/v1/foods', (request, response) => {
-  database('foods').select()
-    .then(foods => response.status(200).json(foods))
-    .catch(error => console.error(error));
+  FoodsController.index(request, response);
+});
+
+app.get('/api/v1/meals', (request, response) => {
+  MealsController.index(request, response);
 });
 
 app.listen(app.get('port'), () => {
-  console.log(`${app.locals.title} is now running on port ${app.get('port')}.`);
+  console.log('Starting server...')
+  console.log(`${app.locals.title} is now running on port ${app.get('port')} in the ${environment} environment.`);
 });
 
 module.exports = app;

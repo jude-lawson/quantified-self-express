@@ -1,25 +1,17 @@
 import chai, { expect } from 'chai';
-import chaiHttp from 'chai-http';
-import app from '../app'
-import foods from './fixtures/foods'
-
-chai.use(chaiHttp);
+import foods from '../fixtures/for_tests/foods'
+import fetch from 'node-fetch'
 
 describe('Food Requests', () => {
   context('GET /api/v1/foods', () => {
     it('should return all foods in the database', done => {
-      chai.request(app)
-        .get('/api/v1/foods')
-        .end((error, response) => {
-          if (error) {
-            console.error(error);
-          }
-
-          expect(response.body).to.deep.eq(foods)
-          expect(response).to.have.status(200);
-
+      fetch('http://localhost:8000/api/v1/foods')
+        .then(response => response.json())
+        .then(parsedResponse => {
+          expect(parsedResponse).to.deep.eq(foods)
           done();
-        });
+        })
+        .catch(error => console.error(error))
     });
   });
 });
