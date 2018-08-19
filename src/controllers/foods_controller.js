@@ -11,6 +11,12 @@ class FoodsController {
     let food = await Food.getSingleFood(food_id);
     response.status(200).json(food);
   }
+
+  static async create(request, response) {
+    let new_food_data = request.body.food;
+    let result = await Food.createFood(new_food_data); 
+    response.status(result.status).json(result.data);
+  }
 }
 
 export default FoodsController;
