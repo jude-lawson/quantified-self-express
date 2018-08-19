@@ -41,7 +41,7 @@ app.get('/api/v1/meals', (request, response) => {
 // });
 
 app.listen(app.get('port'), () => {
-  console.log(`${app.locals.title} is now running on port ${app.get('port')}.`);
+  console.log(`${app.locals.title} is now running on port ${app.get('port')} in the ${environment} environment.`);
 });
 
 module.exports = app;

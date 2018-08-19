@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/Cellar/node/10.4.0/bin/node /usr/local/Cellar/yarn/1.9.4/libexec/bin/yarn.js run babel-node ./app.js
+  /usr/local/Cellar/node/10.4.0/bin/node /usr/local/Cellar/yarn/1.9.4/libexec/bin/yarn.js run babel-node --inspect ./app.js
 
 PATH: 
   /Users/jude/turing/4module/projects/quantified_self_project/quantified_self_express/node_modules/.bin:/Users/jude/turing/4module/projects/quantified_self_project/quantified_self_express/node_modules/.bin:/Users/jude/.config/yarn/link/node_modules/.bin:/Users/jude/turing/4module/projects/quantified_self_project/quantified_self_express/node_modules/.bin:/Users/jude/.config/yarn/link/node_modules/.bin:/usr/local/Cellar/node/10.4.0/libexec/lib/node_modules/npm/bin/node-gyp-bin:/usr/local/Cellar/node/10.4.0/lib/node_modules/npm/bin/node-gyp-bin:/usr/local/Cellar/node/10.4.0/bin/node_modules/npm/bin/node-gyp-bin:/usr/local/Cellar/node/10.4.0/bin:/Users/jude/.rbenv/shims:/Users/jude/.rbenv/shims:/Users/jude/turing/flutter/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/jude/.rbenv/shims:/Users/jude/turing/flutter/bin:./node_modules/.bin:./node_modules/.bin
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  SyntaxError: /Users/jude/turing/4module/projects/quantified_self_project/quantified_self_express/package.json: Unexpected token : in JSON at position 241
+  SyntaxError: /Users/jude/turing/4module/projects/quantified_self_project/quantified_self_express/package.json: Unexpected string in JSON at position 307
       at JSON.parse (<anonymous>)
       at /usr/local/Cellar/yarn/1.9.4/libexec/lib/cli.js:1130:59
       at Generator.next (<anonymous>)
@@ -30,14 +30,16 @@ npm manifest:
     "scripts": {
       "babel-node": "babel-node",
       "start": "nodemon --exec yarn run babel-node -- ./app.js",
-      "debug": 
-      "test": "mocha --require babel-polyfill --require babel-register --exit"
+      "debug": "nodemon --exec yarn run babel-node --inspect -- ./app.js",
+      "debug:test" "nodemon --exec yarn run babel-node --inspect -- ./app.js",
+      "test": "mocha --require babel-polyfill --require babel-register --no-timeouts --exit"
     },
     "dependencies": {
       "body-parser": "^1.18.3",
       "eslint": "^5.4.0",
       "express": "^4.16.3",
       "knex": "^0.15.2",
+      "node-fetch": "^2.2.0",
       "pg": "^7.4.3"
     },
     "devDependencies": {
@@ -2252,6 +2254,10 @@ Lockfile:
   nice-try@^1.0.4:
     version "1.0.4"
     resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.4.tgz#d93962f6c52f2c1558c0fbda6d512819f1efe1c4"
+  
+  node-fetch@^2.2.0:
+    version "2.2.0"
+    resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.2.0.tgz#4ee79bde909262f9775f731e3656d0db55ced5b5"
   
   node-pre-gyp@^0.10.0:
     version "0.10.3"
