@@ -3,6 +3,7 @@ import fetch from 'node-fetch'
 
 import foods from '../fixtures/for_tests/foods';
 import food from '../fixtures/for_tests/food';
+import seed from '../db/seeds/main.js'
 
 describe('Food Requests', () => {
   context('GET /api/v1/foods', () => {

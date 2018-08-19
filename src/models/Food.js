@@ -21,7 +21,7 @@ class Food  {
     let created_food = await database.raw(`INSERT INTO foods (name, calories)
                                            VALUES (?, ?)
                                            RETURNING id` , [new_food.name, new_food.calories]);
-    debugger
+    // debugger
   }
 }
 
