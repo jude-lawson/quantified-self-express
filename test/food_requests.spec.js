@@ -28,4 +28,27 @@ describe('Food Requests', () => {
         .catch(error => console.error(error))
     });
   });
+
+  context('POST /api/v1/foods', () => {
+    it('given a food object, it should create a food', done => {
+      let new_food = JSON.stringify({ food: { name: 'Dumplings', calories: 900 } });
+
+      fetch('http://localhost:8000/api/v1/foods', {
+        method: 'post',
+        body: new_food,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => {
+        expect(response.status).to.eq(200);
+        return response.josn()
+      })
+      .then(parsedResponse => {
+        expect(parsedResponse).to.deep.eq({ id: 5, name: 'Dumplings', calories: 900 })
+        done();
+      })
+      .catch(error => console.error(error))
+    })
+  });
 });

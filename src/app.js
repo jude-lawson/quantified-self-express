@@ -15,21 +15,21 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('port', process.env.PORT || 8000);
 app.locals.title = 'Quantified Self Express API';
 
-app.get('/', (request, response) => {
-  response.send('Quantified Self Express API')
-});
+/* Routes */
 
-app.get('/api/v1/foods', (request, response) => {
-  FoodsController.index(request, response);
-});
+// Root
+app.get('/', (request, response) => { response.send('Quantified Self Express API'); });
 
-app.get('/api/v1/meals', (request, response) => {
-  MealsController.index(request, response);
-});
+// Foods
+app.get('/api/v1/foods', (request, response) => { FoodsController.index(request, response) });
+app.get('/api/v1/foods/:id', (request, response) => { FoodsController.show(request, response) });
+app.post('/api/v1/foods', (request, response) => { FoodsController.create(request, response) });
 
-app.get('/api/v1/foods/:id', (request, response) => {
-  FoodsController.show(request, response);
-});
+// Meals
+app.get('/api/v1/meals', (request, response) => { MealsController.index(request, response); });
+
+
+/* Open server */
 
 app.listen(app.get('port'), () => {
   console.log('Starting server...')
