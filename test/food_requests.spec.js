@@ -14,7 +14,7 @@ describe('Food Requests', () => {
           if (error) {
             console.error(error);
           }
-
+          
           expect(response.body).to.deep.eq(foods)
           expect(response).to.have.status(200);
 
