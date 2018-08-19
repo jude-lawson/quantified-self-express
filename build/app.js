@@ -37,6 +37,10 @@ app.get('/api/v1/meals', function (request, response) {
   _meals_controller2.default.index(request, response);
 });
 
+app.get('/api/v1/foods/:id', function (request, response) {
+  _foods_controller2.default.show(request, response);
+});
+
 app.listen(app.get('port'), function () {
   console.log('Starting server...');
   console.log(app.locals.title + ' is now running on port ' + app.get('port') + ' in the ' + environment + ' environment.');

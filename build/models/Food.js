@@ -47,6 +47,42 @@ var Food = function () {
 
       return getAllFoods;
     }()
+  }, {
+    key: 'getSingleFood',
+    value: function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(food_id) {
+        var food;
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.prev = 0;
+                _context2.next = 3;
+                return database.raw('SELECT foods.* FROM foods\n                                     WHERE foods.id=?', [food_id]);
+
+              case 3:
+                food = _context2.sent;
+                return _context2.abrupt('return', food.rows[0]);
+
+              case 7:
+                _context2.prev = 7;
+                _context2.t0 = _context2['catch'](0);
+                return _context2.abrupt('return', _context2.t0);
+
+              case 10:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this, [[0, 7]]);
+      }));
+
+      function getSingleFood(_x3) {
+        return _ref2.apply(this, arguments);
+      }
+
+      return getSingleFood;
+    }()
   }]);
 
   return Food;

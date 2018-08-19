@@ -10,8 +10,6 @@ const database = require('knex')(configuration);
 import FoodsController from './controllers/foods_controller';
 import MealsController from './controllers/meals_controller';
 
-
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('port', process.env.PORT || 8000);
@@ -27,6 +25,10 @@ app.get('/api/v1/foods', (request, response) => {
 
 app.get('/api/v1/meals', (request, response) => {
   MealsController.index(request, response);
+});
+
+app.get('/api/v1/foods/:id', (request, response) => {
+  FoodsController.show(request, response);
 });
 
 app.listen(app.get('port'), () => {
