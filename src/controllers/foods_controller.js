@@ -17,6 +17,12 @@ class FoodsController {
     let result = await Food.createFood(new_food_data); 
     response.status(result.status).json(result.data);
   }
+
+  static async update(request, response) {
+    let updated_food_data = request.body.food;
+    let result = await Food.updateFood(updated_food_data, request.params.id);
+    response.status(result.status).json(result.data);
+  }
 }
 
 export default FoodsController;

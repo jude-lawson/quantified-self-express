@@ -33,6 +33,18 @@ class Food  {
       }
     }
   }
+
+  static async updateFood(updated_food_data, food_id) {
+    try {
+      let updated_food = await database.raw(`UPDATE foods
+                                             SET name=?, calories=?
+                                             WHERE foods.id=?
+                                             RETURNING id, name, calories`, [updated_food_data.name, updated_food_data.calories, food_id])
+      return { status: 200, data: updated_food };
+    } catch(error) {
+      return { status: 400, data: { error: error } };
+    }
+  }
 }
 
 export default Food;
