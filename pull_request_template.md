@@ -7,6 +7,7 @@
 
 # Description:
 
+Closes #
 
 # Check the correct boxes
 
@@ -15,9 +16,9 @@
 - [ ] This broke everything
 
 # Testing Changes
-- [ ] No Tests have been changed
-- [ ] Some Tests have been changed
-- [ ] All of the Tests have been changed(Please describe what in the world happened)
+- [ ] No previously written tests have been changed
+- [ ] Some previously written tests have been changed
+- [ ] All of the previously written tests have been changed(Please describe what in the world happened)
 
 # Checklist:
 - [ ] I have reviewed my code
