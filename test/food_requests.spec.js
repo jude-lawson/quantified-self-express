@@ -51,5 +51,66 @@ describe('Food Requests', () => {
       })
       .catch(error => console.error(error))
     })
+
+    it('should return 400 if the creation was not successful', done => {
+      let new_food = JSON.stringify({ food: {} });
+
+      fetch('http://localhost:8000/api/v1/foods', {
+        method: 'post',
+        body: new_food,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => {
+        expect(response.status).to.eq(400);
+        done();
+      })
+      .catch(error => console.error(error))
+    });
+
+    it('should return 400 with error message if \'name\' is not included', done => {
+      let errant_food = JSON.stringify({ food: { calories: 900 } });
+
+      fetch('http://localhost:8000/api/v1/foods', {
+        method: 'post',
+        body: errant_food,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => {
+        expect(response.status).to.eq(400);
+        return response.json();
+      })
+      .then(parsedResponse => {
+        expect(parsedResponse).to.deep.eq({ error: 'Name attribute is required' })
+        done();
+      })
+      .catch(error => console.error(error))
+
+    });
+
+    it('should return 400 with error message if \'calories\' is not included', done => {
+      let errant_food = JSON.stringify({ food: { name: 'Dumplings' } });
+
+      fetch('http://localhost:8000/api/v1/foods', {
+        method: 'post',
+        body: errant_food,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => {
+        expect(response.status).to.eq(400);
+        return response.json();
+      })
+      .then(parsedResponse => {
+        expect(parsedResponse).to.deep.eq({ error: 'Calories attribute is required' })
+        done();
+      })
+      .catch(error => console.error(error))
+
+    });
   });
 });
