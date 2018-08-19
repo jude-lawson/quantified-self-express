@@ -13,8 +13,9 @@ class FoodsController {
   }
 
   static async create(request, response) {
-    let new_food = request.body.food;
-    Food.createFood(new_food); 
+    let new_food_data = request.body.food;
+    let new_food = await Food.createFood(new_food_data); 
+    response.status(200).json(new_food.rows[0]);
   }
 }
 

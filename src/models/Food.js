@@ -17,11 +17,11 @@ class Food  {
     }
   }
 
-  static async createFood(new_food) {
+  static async createFood(new_food_data) {
     let created_food = await database.raw(`INSERT INTO foods (name, calories)
                                            VALUES (?, ?)
-                                           RETURNING id` , [new_food.name, new_food.calories]);
-    // debugger
+                                           RETURNING id, name, calories` , [new_food_data.name, new_food_data.calories]);
+    return created_food;
   }
 }
 
