@@ -8,12 +8,10 @@ describe('Food Requests', () => {
       fetch('http://localhost:8000/api/v1/foods')
         .then(response => response.json())
         .then(parsedResponse => {
-          console.log(parsedResponse)
-          console.log('-----')
-          console.log(foods)
           expect(parsedResponse).to.deep.eq(foods)
           done();
         })
+        .catch(error => console.error(error))
     });
   });
 });

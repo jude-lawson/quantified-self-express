@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  SyntaxError: /Users/jude/turing/4module/projects/quantified_self_project/quantified_self_express/package.json: Unexpected string in JSON at position 307
+  SyntaxError: /Users/jude/turing/4module/projects/quantified_self_project/quantified_self_express/package.json: Unexpected token s in JSON at position 404
       at JSON.parse (<anonymous>)
       at /usr/local/Cellar/yarn/1.9.4/libexec/lib/cli.js:1130:59
       at Generator.next (<anonymous>)
@@ -31,8 +31,9 @@ npm manifest:
       "babel-node": "babel-node",
       "start": "nodemon --exec yarn run babel-node -- ./app.js",
       "debug": "nodemon --exec yarn run babel-node --inspect -- ./app.js",
-      "debug:test" "nodemon --exec yarn run babel-node --inspect -- ./app.js",
-      "test": "mocha --require babel-polyfill --require babel-register --no-timeouts --exit"
+      "debug:test": "export NODE_ENV=test && nodemon --exec yarn run babel-node --inspect -- ./app.js",
+      "test": sleep 1 && mocha --require babel-polyfill --require babel-register --no-timeouts --exit",
+      "test:notime": "sleep 1 && mocha --require babel-polyfill --require babel-register --no-timeouts --exit"
     },
     "dependencies": {
       "body-parser": "^1.18.3",
