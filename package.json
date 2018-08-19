@@ -5,13 +5,16 @@
   "license": "MIT",
   "scripts": {
     "babel-node": "babel-node",
+    "clean": "rm -rf build",
+    "build": "yarn clean && yarn babel -d ./build ./src -s",
     "start": "nodemon --exec yarn run babel-node -- ./app.js",
-    "debug": "nodemon --exec yarn run babel-node --inspect -- ./app.js",
+    "start:debug": "nodemon --exec yarn run babel-node --inspect -- ./app.js",
     "debug:test": "export NODE_ENV=test && nodemon --exec yarn run babel-node --inspect -- ./app.js",
     "test": "sleep 1 && mocha --require babel-polyfill --require babel-register --exit",
     "test:notime": "sleep 1 && mocha --require babel-polyfill --require babel-register --no-timeouts --exit"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "body-parser": "^1.18.3",
     "eslint": "^5.4.0",
     "express": "^4.16.3",
@@ -21,7 +24,6 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",
