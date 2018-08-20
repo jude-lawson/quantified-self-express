@@ -3,7 +3,7 @@ import { database } from '../config';
 class QueryService {
   // Food Related Queries
   static async allFoods() {
-    return await database('foods').select();
+    return await database('foods').select()
   }
 
   static async aFood(food_id) {
@@ -13,7 +13,7 @@ class QueryService {
   static async createFood(new_food_data) {
     return await database.raw(`INSERT INTO foods (name, calories) VALUES (?, ?)
                                RETURNING id, name, calories` , 
-                               [new_food_data.name, new_food_data.calories]);
+                               [new_food_data.name, new_food_data.calories])
   }
 
   static async updateFood(updated_food_data, food_id) {
@@ -27,14 +27,18 @@ class QueryService {
   }
 
   static async deleteFood(food_id) {
-    return await database.raw('DELETE FROM foods WHERE foods.id=?', [food_id]);
+    return await database.raw('DELETE FROM foods WHERE foods.id=?', [food_id])
   }
 
   // Meal Queries
 
+  static async aMeal(meal_id) {
+    return await database.raw('SELECT * FROM meals WHERE meals.id=? LIMIT 1', [meal_id])
+  }
+
   static async distinctMealsThatHaveFoods() {
     return await database.raw(`SELECT DISTINCT meals.* from meal_foods
-                               INNER JOIN meals on meal_foods.meal_id=meals.id`);
+                               INNER JOIN meals on meal_foods.meal_id=meals.id`)
   }
 
   static async aMealsFoods(meal_id) {
@@ -50,6 +54,19 @@ class QueryService {
                               INNER JOIN meals on meal_foods.meal_id=meals.id
                               INNER JOIN foods on meal_foods.food_id=foods.id
                               WHERE meal_foods.meal_id=?`, [meal_id])
+  }
+
+  // Meal Food Queries
+
+  static async createMealFood(meal_id, food_id) {
+    return await database.raw(`INSERT INTO meal_foods (meal_id, food_id)
+                               VALUES (?, ?)`, [meal_id, food_id])
+  }
+
+  static async removeMealFood(meal_id, food_id) {
+    return await database.raw(`DELETE FROM meal_foods
+                               WHERE meal_foods.meal_id=?
+                               AND meal_foods.food_id=?`, [meal_id, food_id])
   }
 }
 
