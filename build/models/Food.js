@@ -83,6 +83,94 @@ var Food = function () {
 
       return getSingleFood;
     }()
+  }, {
+    key: 'createFood',
+    value: function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(new_food_data) {
+        var created_food;
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                if (new_food_data.name) {
+                  _context3.next = 4;
+                  break;
+                }
+
+                return _context3.abrupt('return', { status: 400, data: { error: 'Name attribute is required' } });
+
+              case 4:
+                if (new_food_data.calories) {
+                  _context3.next = 8;
+                  break;
+                }
+
+                return _context3.abrupt('return', { status: 400, data: { error: 'Calories attribute is required' } });
+
+              case 8:
+                _context3.prev = 8;
+                _context3.next = 11;
+                return database.raw('INSERT INTO foods (name, calories)\n                                               VALUES (?, ?)\n                                               RETURNING id, name, calories', [new_food_data.name, new_food_data.calories]);
+
+              case 11:
+                created_food = _context3.sent;
+                return _context3.abrupt('return', { status: 200, data: created_food.rows[0] });
+
+              case 15:
+                _context3.prev = 15;
+                _context3.t0 = _context3['catch'](8);
+                return _context3.abrupt('return', { status: 400, data: { error: _context3.t0 } });
+
+              case 18:
+              case 'end':
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this, [[8, 15]]);
+      }));
+
+      function createFood(_x4) {
+        return _ref3.apply(this, arguments);
+      }
+
+      return createFood;
+    }()
+  }, {
+    key: 'updateFood',
+    value: function () {
+      var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(updated_food_data, food_id) {
+        var updated_food;
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.prev = 0;
+                _context4.next = 3;
+                return database.raw('UPDATE foods\n                                             SET name=?, calories=?\n                                             WHERE foods.id=?\n                                             RETURNING id, name, calories', [updated_food_data.name, updated_food_data.calories, food_id]);
+
+              case 3:
+                updated_food = _context4.sent;
+                return _context4.abrupt('return', { status: 200, data: updated_food.rows[0] });
+
+              case 7:
+                _context4.prev = 7;
+                _context4.t0 = _context4['catch'](0);
+                return _context4.abrupt('return', { status: 400, data: { error: _context4.t0 } });
+
+              case 10:
+              case 'end':
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this, [[0, 7]]);
+      }));
+
+      function updateFood(_x5, _x6) {
+        return _ref4.apply(this, arguments);
+      }
+
+      return updateFood;
+    }()
   }]);
 
   return Food;

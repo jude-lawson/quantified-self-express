@@ -25,12 +25,24 @@ class Food  {
     } else {
       try {
         let created_food = await database.raw(`INSERT INTO foods (name, calories)
-                                           VALUES (?, ?)
-                                           RETURNING id, name, calories` , [new_food_data.name, new_food_data.calories]);
+                                               VALUES (?, ?)
+                                               RETURNING id, name, calories` , [new_food_data.name, new_food_data.calories]);
         return { status: 200, data: created_food.rows[0] };
       } catch(error) {
         return { status: 400, data: { error: error } };
       }
+    }
+  }
+
+  static async updateFood(updated_food_data, food_id) {
+    try {
+      let updated_food = await database.raw(`UPDATE foods
+                                             SET name=?, calories=?
+                                             WHERE foods.id=?
+                                             RETURNING id, name, calories`, [updated_food_data.name, updated_food_data.calories, food_id])
+      return { status: 200, data: updated_food.rows[0] };
+    } catch(error) {
+      return { status: 400, data: { error: error } };
     }
   }
 }
