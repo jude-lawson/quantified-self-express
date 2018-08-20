@@ -104,7 +104,7 @@ describe('Meal Food Requests', () => {
                                                
       expect(response.status).to.eq(200);
       expect(parsedResponse).to.deep.eq({ message: 'Successfully removed Chips from Lunch' });
-      expect(no_entry.rowsCount).to.eq(0);
+      expect(no_entry.rowCount).to.eq(0);
     });
 
     it('should return a 404 if the meal cannot be found', async () => {
