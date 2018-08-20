@@ -45,6 +45,17 @@ class Food  {
       return { status: 400, data: { error: error } };
     }
   }
+
+  static async destroyFood(food_id) {
+    await database.raw('DELETE FROM meal_foods WHERE meal_foods.food_id=?', [food_id])
+    let result = await database.raw('DELETE FROM foods WHERE foods.id=?', [food_id])
+    if (!result.rowCount) {
+      return { status: 404, data: { error: 'Food not found' } } 
+    } else {
+      return { status: 204 }
+    }
+    
+  }
 }
 
 export default Food;

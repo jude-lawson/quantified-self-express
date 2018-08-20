@@ -23,6 +23,11 @@ class FoodsController {
     let result = await Food.updateFood(updated_food_data, request.params.id);
     response.status(result.status).json(result.data);
   }
+
+  static async destroy(request, response) {
+    let result = await Food.destroyFood(request.params.id);
+    response.status(result.status).json(result.data);
+  }
 }
 
 export default FoodsController;

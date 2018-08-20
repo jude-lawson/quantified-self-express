@@ -25,6 +25,7 @@ app.get('/api/v1/foods', (request, response) => { FoodsController.index(request,
 app.get('/api/v1/foods/:id', (request, response) => { FoodsController.show(request, response) });
 app.post('/api/v1/foods', (request, response) => { FoodsController.create(request, response) });
 app.patch('/api/v1/foods/:id', (request, response) => { FoodsController.update(request, response) });
+app.delete('/api/v1/foods/:id', (request, response) => { FoodsController.destroy(request, response) });
 
 // Meals
 app.get('/api/v1/meals', (request, response) => { MealsController.index(request, response); });
