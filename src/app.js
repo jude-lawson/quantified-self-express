@@ -2,6 +2,7 @@ import 'babel-polyfill';
 import express from 'express';
 const app = express();
 import bodyParser from 'body-parser';
+import cors from 'cors'
 
 const environment = process.env.NODE_ENV || 'development';
 const configuration = require('../knexfile')[environment];
@@ -11,6 +12,7 @@ import FoodsController from './controllers/foods_controller';
 import MealsController from './controllers/meals_controller';
 import MealFoodsController from './controllers/MealFoodsController';
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('port', process.env.PORT || 8000);
