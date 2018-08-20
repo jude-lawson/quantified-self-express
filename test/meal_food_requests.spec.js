@@ -5,8 +5,6 @@ import meals from '../fixtures/for_seeds/meals';
 import foods from '../fixtures/for_seeds/foods';
 import meal_foods from '../fixtures/for_seeds/meal_foods';
 
-import meals_and_foods from '../fixtures/for_tests/meals_and_foods'
-import meal_and_foods from '../fixtures/for_tests/meal_and_foods'
 
 const environment = 'test';
 const configuration = require('../knexfile')[environment];
