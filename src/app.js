@@ -29,6 +29,7 @@ app.delete('/api/v1/foods/:id', (request, response) => { FoodsController.destroy
 
 // Meals
 app.get('/api/v1/meals', (request, response) => { MealsController.index(request, response); });
+app.get('/api/v1/meals/:meal_id/foods', (request, response) => { MealsController.show(request, response) });
 
 
 /* Open server */
