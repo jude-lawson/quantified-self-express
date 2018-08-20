@@ -93,6 +93,52 @@ var Meal = function () {
 
       return getAllMeals;
     }()
+  }, {
+    key: 'getMealAndFoods',
+    value: function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(meal_id) {
+        var result, meal_foods;
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return database.raw('SELECT meals.id AS meal_id, meals.name AS meal_name,\n                                            foods.id AS food_id, foods.name AS food_name, foods.calories\n                                     FROM meal_foods\n                                     INNER JOIN meals on meal_foods.meal_id=meals.id\n                                     INNER JOIN foods on meal_foods.food_id=foods.id\n                                     WHERE meal_foods.meal_id=?', [meal_id]);
+
+              case 2:
+                result = _context3.sent;
+
+                if (result.rowCount) {
+                  _context3.next = 7;
+                  break;
+                }
+
+                return _context3.abrupt('return', { status: 404, data: { error: 'Meal not found' } });
+
+              case 7:
+                meal_foods = result.rows.map(function (row) {
+                  return {
+                    id: row.food_id,
+                    name: row.food_name,
+                    calories: row.calories
+                  };
+                });
+                return _context3.abrupt('return', { status: 200, data: { id: result.rows[0].meal_id, name: result.rows[0].meal_name, foods: meal_foods } });
+
+              case 9:
+              case 'end':
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function getMealAndFoods(_x2) {
+        return _ref3.apply(this, arguments);
+      }
+
+      return getMealAndFoods;
+    }()
   }]);
 
   return Meal;

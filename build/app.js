@@ -60,6 +60,9 @@ app.delete('/api/v1/foods/:id', function (request, response) {
 app.get('/api/v1/meals', function (request, response) {
   _meals_controller2.default.index(request, response);
 });
+app.get('/api/v1/meals/:meal_id/foods', function (request, response) {
+  _meals_controller2.default.show(request, response);
+});
 
 /* Open server */
 
