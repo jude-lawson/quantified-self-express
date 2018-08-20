@@ -9,6 +9,7 @@ const database = require('knex')(configuration);
 
 import FoodsController from './controllers/foods_controller';
 import MealsController from './controllers/meals_controller';
+import MealFoodsController from './controllers/MealFoodsController';
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -30,6 +31,9 @@ app.delete('/api/v1/foods/:id', (request, response) => { FoodsController.destroy
 // Meals
 app.get('/api/v1/meals', (request, response) => { MealsController.index(request, response); });
 app.get('/api/v1/meals/:meal_id/foods', (request, response) => { MealsController.show(request, response) });
+
+//MealFoods
+app.post('/api/v1/meals/:meal_id/foods/:id', (request, response) => { MealFoodsController.create(request, response) });
 
 
 /* Open server */

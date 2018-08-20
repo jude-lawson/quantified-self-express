@@ -18,6 +18,10 @@ var _meals_controller = require('./controllers/meals_controller');
 
 var _meals_controller2 = _interopRequireDefault(_meals_controller);
 
+var _MealFoodsController = require('./controllers/MealFoodsController');
+
+var _MealFoodsController2 = _interopRequireDefault(_MealFoodsController);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var app = (0, _express2.default)();
@@ -62,6 +66,11 @@ app.get('/api/v1/meals', function (request, response) {
 });
 app.get('/api/v1/meals/:meal_id/foods', function (request, response) {
   _meals_controller2.default.show(request, response);
+});
+
+//MealFoods
+app.post('/api/v1/meals/:meal_id/foods/:id', function (request, response) {
+  _MealFoodsController2.default.create(request, response);
 });
 
 /* Open server */
