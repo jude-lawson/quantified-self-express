@@ -1,11 +1,12 @@
 import chai, { expect } from 'chai';
 import fetch from 'node-fetch';
+
 import meals from '../fixtures/for_seeds/meals';
-import meals_and_foods from '../fixtures/for_tests/meals'
 import foods from '../fixtures/for_seeds/foods';
 import meal_foods from '../fixtures/for_seeds/meal_foods';
 
-import food from '../fixtures/for_tests/food';
+import meals_and_foods from '../fixtures/for_tests/meals_and_foods'
+import meal_and_foods from '../fixtures/for_tests/meal_and_foods'
 
 const environment = 'test';
 const configuration = require('../knexfile')[environment];
@@ -64,6 +65,24 @@ describe('Meal Requests', () => {
       
       expect(response.status).to.eq(200);
       expect(parsedResponse).to.deep.eq(meals_and_foods);
+    });
+  });
+
+  context('GET /api/v1/meals/:meal_id/foods', () => {
+    it('should return all foods for a specified meal', async () => {
+      let response       = await fetch('http://localhost:8000/api/v1/meals/3/foods');
+      let parsedResponse = await response.json();
+
+      expect(response.status).to.eq(200);
+      expect(parsedResponse).to.deep.eq(meal_and_foods);
+    });
+
+    it('should return a 404 if the meal is not found', async () => {
+      let response       = await fetch('http://localhost:8000/api/v1/meals/999/foods')
+      let parsedResponse = await response.json();
+
+      expect(response.status).to.eq(404);
+      expect(parsedResponse).to.deep.eq({ error: 'Meal not found' });
     });
   });
 });
