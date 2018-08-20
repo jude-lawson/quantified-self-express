@@ -171,6 +171,49 @@ var Food = function () {
 
       return updateFood;
     }()
+  }, {
+    key: 'destroyFood',
+    value: function () {
+      var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(food_id) {
+        var result;
+        return regeneratorRuntime.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return database.raw('DELETE FROM meal_foods WHERE meal_foods.food_id=?', [food_id]);
+
+              case 2:
+                _context5.next = 4;
+                return database.raw('DELETE FROM foods WHERE foods.id=?', [food_id]);
+
+              case 4:
+                result = _context5.sent;
+
+                if (result.rowCount) {
+                  _context5.next = 9;
+                  break;
+                }
+
+                return _context5.abrupt('return', { status: 404, data: { error: 'Food not found' } });
+
+              case 9:
+                return _context5.abrupt('return', { status: 204 });
+
+              case 10:
+              case 'end':
+                return _context5.stop();
+            }
+          }
+        }, _callee5, this);
+      }));
+
+      function destroyFood(_x7) {
+        return _ref5.apply(this, arguments);
+      }
+
+      return destroyFood;
+    }()
   }]);
 
   return Food;
