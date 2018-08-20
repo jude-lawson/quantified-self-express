@@ -23,21 +23,21 @@ var MealFood = function () {
     key: 'addFoodToMeal',
     value: function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(meal_id, food_id) {
-        var food, meal, result;
+        var meal, food, result;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return database.raw('SELECT * FROM foods WHERE foods.id=? LIMIT 1', [food_id]);
-
-              case 2:
-                food = _context.sent;
-                _context.next = 5;
                 return database.raw('SELECT * FROM meals WHERE meals.id=? LIMIT 1', [meal_id]);
 
-              case 5:
+              case 2:
                 meal = _context.sent;
+                _context.next = 5;
+                return database.raw('SELECT * FROM foods WHERE foods.id=? LIMIT 1', [food_id]);
+
+              case 5:
+                food = _context.sent;
 
                 if (food.rowCount) {
                   _context.next = 10;
@@ -75,6 +75,63 @@ var MealFood = function () {
       }
 
       return addFoodToMeal;
+    }()
+  }, {
+    key: 'removeFoodFromMeal',
+    value: function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(meal_id, food_id) {
+        var meal, food, result;
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return database.raw('SELECT * FROM meals WHERE meals.id=? LIMIT 1', [meal_id]);
+
+              case 2:
+                meal = _context2.sent;
+                _context2.next = 5;
+                return database.raw('SELECT * FROM foods WHERE foods.id=? LIMIT 1', [food_id]);
+
+              case 5:
+                food = _context2.sent;
+
+                if (food.rowCount) {
+                  _context2.next = 10;
+                  break;
+                }
+
+                return _context2.abrupt('return', { status: 404, data: { error: 'Food could not be found' } });
+
+              case 10:
+                if (meal.rowCount) {
+                  _context2.next = 14;
+                  break;
+                }
+
+                return _context2.abrupt('return', { status: 404, data: { error: 'Meal could not be found' } });
+
+              case 14:
+                _context2.next = 16;
+                return database.raw('DELETE FROM meal_foods\n                                       WHERE meal_foods.meal_id=?\n                                       AND meal_foods.food_id=?', [meal_id, food_id]);
+
+              case 16:
+                result = _context2.sent;
+                return _context2.abrupt('return', { status: 200, data: { message: 'Successfully removed ' + food.rows[0].name + ' from ' + meal.rows[0].name } });
+
+              case 18:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function removeFoodFromMeal(_x3, _x4) {
+        return _ref2.apply(this, arguments);
+      }
+
+      return removeFoodFromMeal;
     }()
   }]);
 

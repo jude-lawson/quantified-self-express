@@ -52,6 +52,37 @@ var MealFoodsController = function () {
 
       return create;
     }()
+  }, {
+    key: 'destroy',
+    value: function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(request, response) {
+        var result;
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _MealFood2.default.removeFoodFromMeal(request.params.meal_id, request.params.id);
+
+              case 2:
+                result = _context2.sent;
+
+                response.status(result.status).json(result.data);
+
+              case 4:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function destroy(_x3, _x4) {
+        return _ref2.apply(this, arguments);
+      }
+
+      return destroy;
+    }()
   }]);
 
   return MealFoodsController;
