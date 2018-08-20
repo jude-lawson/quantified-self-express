@@ -84,6 +84,70 @@ var FoodsController = function () {
 
       return show;
     }()
+  }, {
+    key: 'create',
+    value: function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(request, response) {
+        var new_food_data, result;
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                new_food_data = request.body.food;
+                _context3.next = 3;
+                return _Food2.default.createFood(new_food_data);
+
+              case 3:
+                result = _context3.sent;
+
+                response.status(result.status).json(result.data);
+
+              case 5:
+              case 'end':
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function create(_x5, _x6) {
+        return _ref3.apply(this, arguments);
+      }
+
+      return create;
+    }()
+  }, {
+    key: 'update',
+    value: function () {
+      var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(request, response) {
+        var updated_food_data, result;
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                updated_food_data = request.body.food;
+                _context4.next = 3;
+                return _Food2.default.updateFood(updated_food_data, request.params.id);
+
+              case 3:
+                result = _context4.sent;
+
+                response.status(result.status).json(result.data);
+
+              case 5:
+              case 'end':
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function update(_x7, _x8) {
+        return _ref4.apply(this, arguments);
+      }
+
+      return update;
+    }()
   }]);
 
   return FoodsController;
