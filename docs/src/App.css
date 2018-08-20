@@ -31,6 +31,14 @@ header {
   padding: 10px;
 }
 
+ul {
+  padding-left: 6px;
+}
+
+h4 {
+  margin-bottom: 8px;
+}
+
 .sections-drawer {
   position: fixed;
   top: 80;
@@ -42,6 +50,21 @@ header {
   padding-left: 20px;
 }
 
-.section-link {
-  
+.section-link, .section-header {
+  list-style: none;
+  margin-bottom: 6px;
+  margin-left: 0;
+}
+
+.section-link a {
+  text-decoration: none;
+  color: #000;
+}
+
+.section-link a:visited {
+  color: none;
+}
+
+.section-link a:hover {
+  text-decoration: underline;
 }
