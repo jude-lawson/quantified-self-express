@@ -122,26 +122,26 @@ describe('Food Requests', () => {
   });
 
   context('PATCH /api/v1/foods/:id', () => {
-    // it('should update the food with the specified id', async () => {
-    //   let expected_food     = { food: { name: 'Snickerdoodle', calories: 700 } };
-    //   let updated_food_data = JSON.stringify(expected_food);
-    //   let fetch_init        = { method: 'patch', body: updated_food_data, headers: { 'Content-Type': 'application/json' } }
+    it('should update the food with the specified id', async () => {
+      let expected_food     = { id: 1, name: 'Snickerdoodle', calories: 700 };
+      let updated_food_data = JSON.stringify({ food: { name: 'Snickerdoodle', calories: 700 } });
+      let fetch_init        = { method: 'patch', body: updated_food_data, headers: { 'Content-Type': 'application/json' } }
 
-    //   let response       = await fetch('http://localhost:8000/api/v1/foods/1', fetch_init)
-    //   let parsedResponse = await response.json();
+      let response       = await fetch('http://localhost:8000/api/v1/foods/1', fetch_init)
+      let parsedResponse = await response.json();
 
-    //   expect(response.status).to.eq(200);
-    //   expect(parsedResponse).to.deep.eq(expected_food);
-    // })
+      expect(response.status).to.eq(200);
+      expect(parsedResponse).to.deep.eq(expected_food);
+    })
 
-    // it('should return a 400 if the food update was unsuccessful', async () => {
-    //   let errant_food       = { food: {} };
-    //   let updated_food_data = JSON.stringify(errant_food);
-    //   let fetch_init        = { method: 'patch', body: updated_food_data, headers: { 'Content-Type': 'application/json' } }
+    it('should return a 400 if the food update was unsuccessful', async () => {
+      let errant_food       = { food: {} };
+      let updated_food_data = JSON.stringify(errant_food);
+      let fetch_init        = { method: 'patch', body: updated_food_data, headers: { 'Content-Type': 'application/json' } }
 
-    //   let response = await fetch('http://localhost:8000/api/v1/foods/1', fetch_init)
+      let response = await fetch('http://localhost:8000/api/v1/foods/1', fetch_init)
 
-    //   expect(response.status).to.eq(400);
-    // });
+      expect(response.status).to.eq(400);
+    });
   });
 });
