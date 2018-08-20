@@ -3,10 +3,11 @@ import express from 'express';
 const app = express();
 import bodyParser from 'body-parser';
 import cors from 'cors'
+import { environment } from './config';
 
-const environment = process.env.NODE_ENV || 'development';
-const configuration = require('../knexfile')[environment];
-const database = require('knex')(configuration);
+// const environment = process.env.NODE_ENV || 'development';
+// const configuration = require('../knexfile')[environment];
+// const database = require('knex')(configuration);
 
 import FoodsController from './controllers/foods_controller';
 import MealsController from './controllers/meals_controller';
