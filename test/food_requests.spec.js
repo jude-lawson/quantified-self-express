@@ -144,4 +144,22 @@ describe('Food Requests', () => {
       expect(response.status).to.eq(400);
     });
   });
+
+  context('DELETE /api/v1/foods/:id', () => {
+    it('should delete the food and return a 204 if successful', async () => {
+      let fetch_init = { method: 'delete' }
+
+      let response = await fetch('http://localhost:8000/api/v1/foods/2', fetch_init)
+      
+      expect(response.status).to.eq(204)
+    });
+
+    it('should return a 404 if not successful', async () => {
+      let fetch_init = { method: 'delete' }
+
+      let response = await fetch('http://localhost:8000/api/v1/foods/999', fetch_init)
+
+      expect(response.status).to.eq(404)
+    });
+  })
 });
