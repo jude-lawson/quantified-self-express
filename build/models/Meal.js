@@ -6,13 +6,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _QueryService = require('../services/QueryService');
+
+var _QueryService2 = _interopRequireDefault(_QueryService);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var environment = process.env.NODE_ENV || 'development';
-var configuration = require('../../knexfile')[environment];
-var database = require('knex')(configuration);
 
 var Meal = function () {
   function Meal() {
@@ -30,13 +32,12 @@ var Meal = function () {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.prev = 0;
-                _context2.next = 3;
-                return database.raw('SELECT DISTINCT meals.* from meal_foods\n                                    INNER JOIN meals on meal_foods.meal_id=meals.id');
+                _context2.next = 2;
+                return _QueryService2.default.distinctMealsThatHaveFoods();
 
-              case 3:
+              case 2:
                 meals = _context2.sent;
-                _context2.next = 6;
+                _context2.next = 5;
                 return Promise.all(meals.rows.map(function () {
                   var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(meal) {
                     var result;
@@ -45,15 +46,11 @@ var Meal = function () {
                         switch (_context.prev = _context.next) {
                           case 0:
                             _context.next = 2;
-                            return database.raw('SELECT foods.* from meal_foods\n                    INNER JOIN foods on meal_foods.food_id=foods.id\n                    WHERE meal_foods.meal_id=?', [meal.id]);
+                            return _QueryService2.default.aMealsFoods(meal.id);
 
                           case 2:
                             result = _context.sent;
-                            return _context.abrupt('return', {
-                              id: meal.id,
-                              name: meal.name,
-                              foods: result.rows
-                            });
+                            return _context.abrupt('return', { id: meal.id, name: meal.name, foods: result.rows });
 
                           case 4:
                           case 'end':
@@ -68,23 +65,18 @@ var Meal = function () {
                   };
                 }()));
 
-              case 6:
+              case 5:
                 meal_foods = _context2.sent;
                 return _context2.abrupt('return', meal_foods.sort(function (a, b) {
                   return a.id - b.id;
                 }));
 
-              case 10:
-                _context2.prev = 10;
-                _context2.t0 = _context2['catch'](0);
-                return _context2.abrupt('return', _context2.t0);
-
-              case 13:
+              case 7:
               case 'end':
                 return _context2.stop();
             }
           }
-        }, _callee2, this, [[0, 10]]);
+        }, _callee2, this);
       }));
 
       function getAllMeals() {
@@ -103,7 +95,7 @@ var Meal = function () {
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return database.raw('SELECT meals.id AS meal_id, meals.name AS meal_name,\n                                            foods.id AS food_id, foods.name AS food_name, foods.calories\n                                     FROM meal_foods\n                                     INNER JOIN meals on meal_foods.meal_id=meals.id\n                                     INNER JOIN foods on meal_foods.food_id=foods.id\n                                     WHERE meal_foods.meal_id=?', [meal_id]);
+                return _QueryService2.default.aMealAndAllItsFoods(meal_id);
 
               case 2:
                 result = _context3.sent;

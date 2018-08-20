@@ -1,16 +1,13 @@
-const environment = process.env.NODE_ENV || 'development';
-const configuration = require('../../knexfile')[environment];
-const database = require('knex')(configuration);
+import QueryService from '../services/QueryService';
 
-class Food  {
+class Food {
   static async getAllFoods(request, response) {
-    return await database('foods').select();
+    return await QueryService.allFoods();
   }
 
   static async getSingleFood(food_id) {
     try {
-      let food = await database.raw(`SELECT foods.* FROM foods
-                                     WHERE foods.id=?`, [food_id]);
+      let food = await QueryService.aFood(food_id);
       return food.rows[0];
     } catch(error) {
       return error;
@@ -24,9 +21,7 @@ class Food  {
       return { status: 400, data: { error: 'Calories attribute is required' } };
     } else {
       try {
-        let created_food = await database.raw(`INSERT INTO foods (name, calories)
-                                               VALUES (?, ?)
-                                               RETURNING id, name, calories` , [new_food_data.name, new_food_data.calories]);
+        let created_food = await QueryService.createFood(new_food_data);
         return { status: 200, data: created_food.rows[0] };
       } catch(error) {
         return { status: 400, data: { error: error } };
@@ -36,10 +31,7 @@ class Food  {
 
   static async updateFood(updated_food_data, food_id) {
     try {
-      let updated_food = await database.raw(`UPDATE foods
-                                             SET name=?, calories=?
-                                             WHERE foods.id=?
-                                             RETURNING id, name, calories`, [updated_food_data.name, updated_food_data.calories, food_id])
+      let updated_food = await QueryService.updateFood(updated_food_data, food_id);
       return { status: 200, data: updated_food.rows[0] };
     } catch(error) {
       return { status: 400, data: { error: error } };
@@ -47,8 +39,8 @@ class Food  {
   }
 
   static async destroyFood(food_id) {
-    await database.raw('DELETE FROM meal_foods WHERE meal_foods.food_id=?', [food_id])
-    let result = await database.raw('DELETE FROM foods WHERE foods.id=?', [food_id])
+    await QueryService.deleteFoodToMealAssociation(food_id);
+    let result = await QueryService.deleteFood(food_id);
     if (!result.rowCount) {
       return { status: 404, data: { error: 'Food not found' } } 
     } else {
