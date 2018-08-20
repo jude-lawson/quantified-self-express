@@ -52,6 +52,9 @@ app.post('/api/v1/foods', function (request, response) {
 app.patch('/api/v1/foods/:id', function (request, response) {
   _foods_controller2.default.update(request, response);
 });
+app.delete('/api/v1/foods/:id', function (request, response) {
+  _foods_controller2.default.destroy(request, response);
+});
 
 // Meals
 app.get('/api/v1/meals', function (request, response) {

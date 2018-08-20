@@ -148,6 +148,37 @@ var FoodsController = function () {
 
       return update;
     }()
+  }, {
+    key: 'destroy',
+    value: function () {
+      var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(request, response) {
+        var result;
+        return regeneratorRuntime.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return _Food2.default.destroyFood(request.params.id);
+
+              case 2:
+                result = _context5.sent;
+
+                response.status(result.status).json(result.data);
+
+              case 4:
+              case 'end':
+                return _context5.stop();
+            }
+          }
+        }, _callee5, this);
+      }));
+
+      function destroy(_x9, _x10) {
+        return _ref5.apply(this, arguments);
+      }
+
+      return destroy;
+    }()
   }]);
 
   return FoodsController;
