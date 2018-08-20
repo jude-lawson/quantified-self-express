@@ -10,6 +10,10 @@ var _bodyParser = require('body-parser');
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
+var _cors = require('cors');
+
+var _cors2 = _interopRequireDefault(_cors);
+
 var _foods_controller = require('./controllers/foods_controller');
 
 var _foods_controller2 = _interopRequireDefault(_foods_controller);
@@ -31,6 +35,7 @@ var environment = process.env.NODE_ENV || 'development';
 var configuration = require('../knexfile')[environment];
 var database = require('knex')(configuration);
 
+app.use((0, _cors2.default)());
 app.use(_bodyParser2.default.json());
 app.use(_bodyParser2.default.urlencoded({ extended: true }));
 app.set('port', process.env.PORT || 8000);
