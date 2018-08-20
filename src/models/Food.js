@@ -40,7 +40,7 @@ class Food  {
                                              SET name=?, calories=?
                                              WHERE foods.id=?
                                              RETURNING id, name, calories`, [updated_food_data.name, updated_food_data.calories, food_id])
-      return { status: 200, data: updated_food };
+      return { status: 200, data: updated_food.rows[0] };
     } catch(error) {
       return { status: 400, data: { error: error } };
     }
