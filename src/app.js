@@ -34,6 +34,7 @@ app.get('/api/v1/meals/:meal_id/foods', (request, response) => { MealsController
 
 //MealFoods
 app.post('/api/v1/meals/:meal_id/foods/:id', (request, response) => { MealFoodsController.create(request, response) });
+app.delete('/api/v1/meals/:meal_id/foods/:id', (request,response) => { MealFoodsController.destroy(request, response) });
 
 
 /* Open server */

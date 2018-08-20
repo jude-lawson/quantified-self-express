@@ -91,6 +91,40 @@ describe('Meal Food Requests', () => {
       expect(response.status).to.eq(404);
       expect(parsedResponse).to.deep.eq({ error: 'Food could not be found' });
     });
+  });
 
+  context('DELETE /api/v1/meals/:meal_id/foods/:id', () => {
+    it('should remove the specified food from the specified meal and return a message', async () => {
+      let fetch_init = { method: 'delete' };
+
+      let response       = await fetch('http://localhost:8000/api/v1/meals/3/foods/4', fetch_init);
+      let parsedResponse = await response.json();
+      let no_entry       = await database.raw(`SELECT * FROM meal_foods
+                                               WHERE meal_foods.meal_id=3 AND meal_foods.food_id=4`);
+                                               
+      expect(response.status).to.eq(200);
+      expect(parsedResponse).to.deep.eq({ message: 'Successfully removed Chips from Lunch' });
+      expect(no_entry.rowCount).to.eq(0);
+    });
+
+    it('should return a 404 if the meal cannot be found', async () => {
+      let fetch_init = { method: 'delete' }
+
+      let response       = await fetch('http://localhost:8000/api/v1/meals/9999/foods/4', fetch_init);
+      let parsedResponse = await response.json();
+
+      expect(response.status).to.eq(404);
+      expect(parsedResponse).to.deep.eq({ error: 'Meal could not be found' })
+    });
+
+    it('should return a 404 if the food cannot be found', async () => {
+      let fetch_init = { method: 'delete' }
+
+      let response       = await fetch('http://localhost:8000/api/v1/meals/3/foods/9999', fetch_init);
+      let parsedResponse = await response.json();
+
+      expect(response.status).to.eq(404);
+      expect(parsedResponse).to.deep.eq({ error: 'Food could not be found' })
+    });
   });
 });

@@ -72,6 +72,9 @@ app.get('/api/v1/meals/:meal_id/foods', function (request, response) {
 app.post('/api/v1/meals/:meal_id/foods/:id', function (request, response) {
   _MealFoodsController2.default.create(request, response);
 });
+app.delete('/api/v1/meals/:meal_id/foods/:id', function (request, response) {
+  _MealFoodsController2.default.destroy(request, response);
+});
 
 /* Open server */
 
