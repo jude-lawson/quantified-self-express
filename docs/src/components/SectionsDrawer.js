@@ -3,8 +3,12 @@ import React, { Component } from 'react';
 import SectionLink from './SectionLink';
 import SectionHeader from './SectionHeader';
 
+import introduction from '../pages/Introduction';
+
 export default class SectionsDrawer extends Component {
+  
   render() {
+    console.log(introduction);
     return (
       <aside className='sections-drawer'>
         <SectionHeader name='Introduction' />
@@ -18,14 +22,14 @@ export default class SectionsDrawer extends Component {
           <SectionLink name='Update a food' />
           <SectionLink name='Remove a food' />
         </ul>
-        <h4>Meals</h4>
+        <SectionHeader name='Meals' seub={true} />
         <ul>
           <SectionLink name='Get all meals' />
           <SectionLink name='Get a meal and its foods' />
           <SectionLink name='Add a food to a meal' />
           <SectionLink name='Remove a food from a meal' />
         </ul>
-        <h3>Contributing</h3>
+        <SectionHeader name='Contributing' />
       </aside>
     );
   }

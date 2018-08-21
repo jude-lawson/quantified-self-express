@@ -1,3 +1,9 @@
+.App {
+  display: grid;
+  grid-template-columns: 220px auto;
+  grid-template-rows: 150px auto;
+}
+
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
@@ -26,7 +32,8 @@
 header {
   display: flex;
   align-items: center;
-  height: 80px;
+  grid-column-start: 1;
+  grid-column-end: 3;
   background-color: #CCC;
   padding: 10px;
 }
@@ -39,14 +46,25 @@ h4 {
   margin-bottom: 8px;
 }
 
+main {
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+
+.section-header a, .sub-section-header a {
+  text-decoration: none;
+  color: #000;
+}
+
+.section-header a:hover, .sub-section-header a:hover{
+  text-decoration: underline;
+}
+
 .sections-drawer {
-  position: fixed;
-  top: 80;
-  left: 0;
+  grid-column-start: 1;
+  grid-column-end: 2;
   background: #AAA;
   height: 100vh;
-  width: 15%;
-  min-width: 220px;
   padding-left: 20px;
 }
 
