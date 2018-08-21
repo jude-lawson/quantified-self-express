@@ -56,6 +56,7 @@ describe('Meal Requests', () => {
                     VALUES (?,?)`, [meal_foods[2].meal_id, meal_foods[2].food_id]);
     await database.raw(`INSERT INTO meal_foods (meal_id, food_id)
                     VALUES (?,?)`, [meal_foods[3].meal_id, meal_foods[3].food_id]);
+    // return await TestHelper.testSeed();
   })
 
   context('GET /api/v1/meals', () => {

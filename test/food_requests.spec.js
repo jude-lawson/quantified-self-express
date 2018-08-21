@@ -4,7 +4,6 @@ import fetch from 'node-fetch'
 import foods from '../fixtures/for_seeds/foods';
 import meals from '../fixtures/for_seeds/meals';
 import meal_foods from '../fixtures/for_seeds/meal_foods';
-
 import food from '../fixtures/for_tests/food';
 
 const environment = 'test';
