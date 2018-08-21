@@ -5,7 +5,6 @@ import meals from '../fixtures/for_seeds/meals';
 import foods from '../fixtures/for_seeds/foods';
 import meal_foods from '../fixtures/for_seeds/meal_foods';
 
-
 const environment = 'test';
 const configuration = require('../knexfile')[environment];
 const database = require('knex')(configuration);
@@ -53,6 +52,7 @@ describe('Meal Food Requests', () => {
                     VALUES (?,?)`, [meal_foods[2].meal_id, meal_foods[2].food_id]);
     await database.raw(`INSERT INTO meal_foods (meal_id, food_id)
                     VALUES (?,?)`, [meal_foods[3].meal_id, meal_foods[3].food_id]);
+    // return await TestHelper.testSeed();
   });
 
   context('POST /api/v1/meals/:meal_id/foods/:id', () => {
