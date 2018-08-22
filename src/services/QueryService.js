@@ -36,6 +36,13 @@ class QueryService {
     return await database.raw('SELECT * FROM meals WHERE meals.id=? LIMIT 1', [meal_id])
   }
 
+  static async allMeals() {
+    return await database.raw(`SELECT meals.id, meals.name, json_agg(foods.*) AS foods FROM meal_foods
+                               INNER JOIN meals ON meal_foods.meal_id=meals.id
+                               INNER JOIN foods ON meal_foods.food_id=foods.id
+                               GROUP BY meals.id`)
+  }
+
   static async distinctMealsThatHaveFoods() {
     return await database.raw(`SELECT DISTINCT meals.* from meal_foods
                                INNER JOIN meals on meal_foods.meal_id=meals.id`)
