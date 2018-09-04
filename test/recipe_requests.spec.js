@@ -1,6 +1,5 @@
 import chai, { expect } from 'chai';
 import fetch from 'node-fetch';
-import nock from 'nock'
 
 
 import { yummly_app_id, yummly_app_key } from '../secrets';
@@ -10,13 +9,13 @@ import banana_search_yummly from '../fixtures/for_tests/banana_search_yummly'
 
 // Stubs
 
-const mock_banana_results = nock('http://api.yummly.com')
-                              .get(`/v1/api/recipes?_app_id=${yummly_app_id}&_app_key=${yummly_app_key}&q=banana`)
-                              .reply(200, banana_search_yummly)
+// const mock_banana_results = nock('http://api.yummly.com')
+//                               .get(`/v1/api/recipes?_app_id=${yummly_app_id}&_app_key=${yummly_app_key}&q=banana`)
+//                               .reply(200, banana_search_yummly)
 
-const turing_mock = nock('http://backend.turing.io')
-                      .get('/module4')
-                      .reply(200, { message: 'hello' })
+// const turing_mock = nock('http://backend.turing.io')
+//                       .get('/module4')
+//                       .reply(200, "hello")
 
 const environment = 'test';
 const configuration = require('../knexfile')[environment];
@@ -35,6 +34,11 @@ describe('Recipe Search Requests', () => {
     // Add Food
     await database.raw(`INSERT INTO foods (name, calories) VALUES (?, ?)`, ['Banana', 800])
     await database.raw(`INSERT INTO foods (name, calories) VALUES (?, ?)`, ['Onion Soup', 800])
+
+    // nock('http://backend.turing.io')
+    //   .get('/module4')
+    //   .reply(200, { "message": "hello" })
+    
   });
 
   context('GET /api/v1/foods/:id/recipes', () => {
