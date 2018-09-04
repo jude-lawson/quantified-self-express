@@ -34,5 +34,21 @@ describe('Favorite Foods Requests', () => {
     await database.raw(`INSERT INTO meals (name) VALUES (?)`, ['Dinner'])
 
     // Create Meal Foods
+    await database.raw(`INSERT INTO meal_foods (meal_id, food_id) VALUES (?, ?)`, [1, 3])
+    await database.raw(`INSERT INTO meal_foods (meal_id, food_id) VALUES (?, ?)`, [2, 1])
+    await database.raw(`INSERT INTO meal_foods (meal_id, food_id) VALUES (?, ?)`, [2, 2])
+    await database.raw(`INSERT INTO meal_foods (meal_id, food_id) VALUES (?, ?)`, [3, 4])
+    await database.raw(`INSERT INTO meal_foods (meal_id, food_id) VALUES (?, ?)`, [4, 1])
+    await database.raw(`INSERT INTO meal_foods (meal_id, food_id) VALUES (?, ?)`, [4, 2])
   });
+
+  context('GET /api/v1/favorite_foods', () => {
+    it('should return the meals that match the most times eaten and report that number', async () => {
+      let response       = await fetch('http://localhost:8000/api/v1/favorite_foods');
+      let parsedResponse = await response.json();
+
+      expect(response.status).to.eq(200)
+      expect(parsedResponse).to.deep.eq(favorite_foods);
+    });
+  })
 })
