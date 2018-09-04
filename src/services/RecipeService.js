@@ -6,8 +6,8 @@ if (process.env.NODE_ENV === "test" || process.env.NODE_ENV === undefined) {
   yummly_app_id = require('../../secrets').yummly_app_id;
   yummly_app_key =  require('../../secrets').yummly_app_key;
 } else {
-  yummly_app_id = process.env.YUMMLY_APP_ID;
-  yummly_app_id = process.env.YUMMLY_APP_KEY;
+  yummly_app_id = ENV['YUMMLY_APP_ID'];
+  yummly_app_id = ENV['YUMMLY_APP_KEY'];
 }
 
 const banana_search_yummly = require('../../fixtures/for_tests/banana_search_yummly');
