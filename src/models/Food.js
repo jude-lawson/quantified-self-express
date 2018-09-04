@@ -55,8 +55,9 @@ class Food {
     let mostPopular = result.rows.filter((food, _index, rows) => {
       return food.food_count === maxTimesEaten;
     }).map((popularFood) => {
-      return { name: popularFood.name, calories: parseInt(popularFood.calories) }
+      return { name: popularFood.name, calories: parseInt(popularFood.calories), mealsWhenEaten: popularFood.meals_when_eaten }
     });
+    
     return { status: 200, data: { timesEaten: parseInt(maxTimesEaten), foods: mostPopular }}
   }
 }

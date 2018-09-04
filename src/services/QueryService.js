@@ -23,8 +23,10 @@ class QueryService {
   }
 
   static async getFoodCounts() {
-    return await database.raw(`SELECT foods.*, COUNT(foods.id) AS food_count FROM meal_foods
+    return await database.raw(`SELECT foods.*, COUNT(foods.id) AS food_count, array_agg(meals.name) AS meals_when_eaten
+                               FROM meal_foods
                                INNER JOIN foods ON meal_foods.food_id = foods.id
+                               INNER JOIN meals ON meal_foods.meal_id = meals.id
                                GROUP BY foods.id
                                ORDER BY food_count DESC
                                LIMIT 5`)

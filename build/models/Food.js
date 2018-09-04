@@ -234,7 +234,7 @@ var Food = function () {
                 mostPopular = result.rows.filter(function (food, _index, rows) {
                   return food.food_count === maxTimesEaten;
                 }).map(function (popularFood) {
-                  return { name: popularFood.name, calories: parseInt(popularFood.calories) };
+                  return { name: popularFood.name, calories: parseInt(popularFood.calories), mealsWhenEaten: popularFood.meals_when_eaten };
                 });
                 return _context6.abrupt('return', { status: 200, data: { timesEaten: parseInt(maxTimesEaten), foods: mostPopular } });
 
