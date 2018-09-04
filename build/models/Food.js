@@ -216,6 +216,42 @@ var Food = function () {
 
       return destroyFood;
     }()
+  }, {
+    key: 'getFavorites',
+    value: function () {
+      var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+        var result, maxTimesEaten, mostPopular;
+        return regeneratorRuntime.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _context6.next = 2;
+                return _QueryService2.default.getFoodCounts();
+
+              case 2:
+                result = _context6.sent;
+                maxTimesEaten = result.rows[0].food_count;
+                mostPopular = result.rows.filter(function (food, _index, rows) {
+                  return food.food_count === maxTimesEaten;
+                }).map(function (popularFood) {
+                  return { name: popularFood.name, calories: parseInt(popularFood.calories) };
+                });
+                return _context6.abrupt('return', { status: 200, data: { timesEaten: parseInt(maxTimesEaten), foods: mostPopular } });
+
+              case 6:
+              case 'end':
+                return _context6.stop();
+            }
+          }
+        }, _callee6, this);
+      }));
+
+      function getFavorites() {
+        return _ref6.apply(this, arguments);
+      }
+
+      return getFavorites;
+    }()
   }]);
 
   return Food;

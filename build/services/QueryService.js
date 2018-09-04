@@ -132,15 +132,15 @@ var QueryService = function () {
       return updateFood;
     }()
   }, {
-    key: 'deleteFoodToMealAssociation',
+    key: 'getFoodCounts',
     value: function () {
-      var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(food_id) {
+      var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
         return regeneratorRuntime.wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
                 _context5.next = 2;
-                return _config.database.raw('DELETE FROM meal_foods WHERE meal_foods.food_id=?', [food_id]);
+                return _config.database.raw('SELECT foods.*, COUNT(foods.id) AS food_count FROM meal_foods\n                               INNER JOIN foods ON meal_foods.food_id = foods.id\n                               GROUP BY foods.id\n                               ORDER BY food_count DESC\n                               LIMIT 5');
 
               case 2:
                 return _context5.abrupt('return', _context5.sent);
@@ -153,14 +153,14 @@ var QueryService = function () {
         }, _callee5, this);
       }));
 
-      function deleteFoodToMealAssociation(_x5) {
+      function getFoodCounts() {
         return _ref5.apply(this, arguments);
       }
 
-      return deleteFoodToMealAssociation;
+      return getFoodCounts;
     }()
   }, {
-    key: 'deleteFood',
+    key: 'deleteFoodToMealAssociation',
     value: function () {
       var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(food_id) {
         return regeneratorRuntime.wrap(function _callee6$(_context6) {
@@ -168,7 +168,7 @@ var QueryService = function () {
             switch (_context6.prev = _context6.next) {
               case 0:
                 _context6.next = 2;
-                return _config.database.raw('DELETE FROM foods WHERE foods.id=?', [food_id]);
+                return _config.database.raw('DELETE FROM meal_foods WHERE meal_foods.food_id=?', [food_id]);
 
               case 2:
                 return _context6.abrupt('return', _context6.sent);
@@ -181,25 +181,22 @@ var QueryService = function () {
         }, _callee6, this);
       }));
 
-      function deleteFood(_x6) {
+      function deleteFoodToMealAssociation(_x5) {
         return _ref6.apply(this, arguments);
       }
 
-      return deleteFood;
+      return deleteFoodToMealAssociation;
     }()
-
-    // Meal Queries
-
   }, {
-    key: 'aMeal',
+    key: 'deleteFood',
     value: function () {
-      var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(meal_id) {
+      var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(food_id) {
         return regeneratorRuntime.wrap(function _callee7$(_context7) {
           while (1) {
             switch (_context7.prev = _context7.next) {
               case 0:
                 _context7.next = 2;
-                return _config.database.raw('SELECT * FROM meals WHERE meals.id=? LIMIT 1', [meal_id]);
+                return _config.database.raw('DELETE FROM foods WHERE foods.id=?', [food_id]);
 
               case 2:
                 return _context7.abrupt('return', _context7.sent);
@@ -212,22 +209,25 @@ var QueryService = function () {
         }, _callee7, this);
       }));
 
-      function aMeal(_x7) {
+      function deleteFood(_x6) {
         return _ref7.apply(this, arguments);
       }
 
-      return aMeal;
+      return deleteFood;
     }()
+
+    // Meal Queries
+
   }, {
-    key: 'distinctMealsThatHaveFoods',
+    key: 'aMeal',
     value: function () {
-      var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
+      var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(meal_id) {
         return regeneratorRuntime.wrap(function _callee8$(_context8) {
           while (1) {
             switch (_context8.prev = _context8.next) {
               case 0:
                 _context8.next = 2;
-                return _config.database.raw('SELECT DISTINCT meals.* from meal_foods\n                               INNER JOIN meals on meal_foods.meal_id=meals.id');
+                return _config.database.raw('SELECT * FROM meals WHERE meals.id=? LIMIT 1', [meal_id]);
 
               case 2:
                 return _context8.abrupt('return', _context8.sent);
@@ -240,22 +240,22 @@ var QueryService = function () {
         }, _callee8, this);
       }));
 
-      function distinctMealsThatHaveFoods() {
+      function aMeal(_x7) {
         return _ref8.apply(this, arguments);
       }
 
-      return distinctMealsThatHaveFoods;
+      return aMeal;
     }()
   }, {
-    key: 'aMealsFoods',
+    key: 'allMeals',
     value: function () {
-      var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(meal_id) {
+      var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
         return regeneratorRuntime.wrap(function _callee9$(_context9) {
           while (1) {
             switch (_context9.prev = _context9.next) {
               case 0:
                 _context9.next = 2;
-                return _config.database.raw('SELECT foods.* from meal_foods\n                               INNER JOIN foods on meal_foods.food_id=foods.id\n                               WHERE meal_foods.meal_id=?', [meal_id]);
+                return _config.database.raw('SELECT meals.id, meals.name, json_agg(foods.*) AS foods FROM meal_foods\n                               INNER JOIN meals ON meal_foods.meal_id=meals.id\n                               INNER JOIN foods ON meal_foods.food_id=foods.id\n                               GROUP BY meals.id');
 
               case 2:
                 return _context9.abrupt('return', _context9.sent);
@@ -268,22 +268,22 @@ var QueryService = function () {
         }, _callee9, this);
       }));
 
-      function aMealsFoods(_x8) {
+      function allMeals() {
         return _ref9.apply(this, arguments);
       }
 
-      return aMealsFoods;
+      return allMeals;
     }()
   }, {
-    key: 'aMealAndAllItsFoods',
+    key: 'distinctMealsThatHaveFoods',
     value: function () {
-      var _ref10 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(meal_id) {
+      var _ref10 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
         return regeneratorRuntime.wrap(function _callee10$(_context10) {
           while (1) {
             switch (_context10.prev = _context10.next) {
               case 0:
                 _context10.next = 2;
-                return _config.database.raw('SELECT meals.id AS meal_id, meals.name AS meal_name,\n                                foods.id AS food_id, foods.name AS food_name, foods.calories\n                              FROM meal_foods\n                              INNER JOIN meals on meal_foods.meal_id=meals.id\n                              INNER JOIN foods on meal_foods.food_id=foods.id\n                              WHERE meal_foods.meal_id=?', [meal_id]);
+                return _config.database.raw('SELECT DISTINCT meals.* from meal_foods\n                               INNER JOIN meals on meal_foods.meal_id=meals.id');
 
               case 2:
                 return _context10.abrupt('return', _context10.sent);
@@ -296,25 +296,22 @@ var QueryService = function () {
         }, _callee10, this);
       }));
 
-      function aMealAndAllItsFoods(_x9) {
+      function distinctMealsThatHaveFoods() {
         return _ref10.apply(this, arguments);
       }
 
-      return aMealAndAllItsFoods;
+      return distinctMealsThatHaveFoods;
     }()
-
-    // Meal Food Queries
-
   }, {
-    key: 'createMealFood',
+    key: 'aMealsFoods',
     value: function () {
-      var _ref11 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(meal_id, food_id) {
+      var _ref11 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(meal_id) {
         return regeneratorRuntime.wrap(function _callee11$(_context11) {
           while (1) {
             switch (_context11.prev = _context11.next) {
               case 0:
                 _context11.next = 2;
-                return _config.database.raw('INSERT INTO meal_foods (meal_id, food_id)\n                               VALUES (?, ?)', [meal_id, food_id]);
+                return _config.database.raw('SELECT foods.* from meal_foods\n                               INNER JOIN foods on meal_foods.food_id=foods.id\n                               WHERE meal_foods.meal_id=?', [meal_id]);
 
               case 2:
                 return _context11.abrupt('return', _context11.sent);
@@ -327,22 +324,22 @@ var QueryService = function () {
         }, _callee11, this);
       }));
 
-      function createMealFood(_x10, _x11) {
+      function aMealsFoods(_x8) {
         return _ref11.apply(this, arguments);
       }
 
-      return createMealFood;
+      return aMealsFoods;
     }()
   }, {
-    key: 'removeMealFood',
+    key: 'aMealAndAllItsFoods',
     value: function () {
-      var _ref12 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12(meal_id, food_id) {
+      var _ref12 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12(meal_id) {
         return regeneratorRuntime.wrap(function _callee12$(_context12) {
           while (1) {
             switch (_context12.prev = _context12.next) {
               case 0:
                 _context12.next = 2;
-                return _config.database.raw('DELETE FROM meal_foods\n                               WHERE meal_foods.meal_id=?\n                               AND meal_foods.food_id=?', [meal_id, food_id]);
+                return _config.database.raw('SELECT meals.id AS meal_id, meals.name AS meal_name,\n                                foods.id AS food_id, foods.name AS food_name, foods.calories\n                              FROM meal_foods\n                              INNER JOIN meals on meal_foods.meal_id=meals.id\n                              INNER JOIN foods on meal_foods.food_id=foods.id\n                              WHERE meal_foods.meal_id=?', [meal_id]);
 
               case 2:
                 return _context12.abrupt('return', _context12.sent);
@@ -355,8 +352,67 @@ var QueryService = function () {
         }, _callee12, this);
       }));
 
-      function removeMealFood(_x12, _x13) {
+      function aMealAndAllItsFoods(_x9) {
         return _ref12.apply(this, arguments);
+      }
+
+      return aMealAndAllItsFoods;
+    }()
+
+    // Meal Food Queries
+
+  }, {
+    key: 'createMealFood',
+    value: function () {
+      var _ref13 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13(meal_id, food_id) {
+        return regeneratorRuntime.wrap(function _callee13$(_context13) {
+          while (1) {
+            switch (_context13.prev = _context13.next) {
+              case 0:
+                _context13.next = 2;
+                return _config.database.raw('INSERT INTO meal_foods (meal_id, food_id)\n                               VALUES (?, ?)', [meal_id, food_id]);
+
+              case 2:
+                return _context13.abrupt('return', _context13.sent);
+
+              case 3:
+              case 'end':
+                return _context13.stop();
+            }
+          }
+        }, _callee13, this);
+      }));
+
+      function createMealFood(_x10, _x11) {
+        return _ref13.apply(this, arguments);
+      }
+
+      return createMealFood;
+    }()
+  }, {
+    key: 'removeMealFood',
+    value: function () {
+      var _ref14 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee14(meal_id, food_id) {
+        return regeneratorRuntime.wrap(function _callee14$(_context14) {
+          while (1) {
+            switch (_context14.prev = _context14.next) {
+              case 0:
+                _context14.next = 2;
+                return _config.database.raw('DELETE FROM meal_foods\n                               WHERE meal_foods.meal_id=?\n                               AND meal_foods.food_id=?', [meal_id, food_id]);
+
+              case 2:
+                return _context14.abrupt('return', _context14.sent);
+
+              case 3:
+              case 'end':
+                return _context14.stop();
+            }
+          }
+        }, _callee14, this);
+      }));
+
+      function removeMealFood(_x12, _x13) {
+        return _ref14.apply(this, arguments);
       }
 
       return removeMealFood;

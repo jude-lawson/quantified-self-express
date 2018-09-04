@@ -24,59 +24,28 @@ var Meal = function () {
   _createClass(Meal, null, [{
     key: 'getAllMeals',
     value: function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-        var _this = this;
-
-        var meals, meal_foods;
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        var result, sorted_result;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context.prev = _context.next) {
               case 0:
-                _context2.next = 2;
-                return _QueryService2.default.distinctMealsThatHaveFoods();
+                _context.next = 2;
+                return _QueryService2.default.allMeals();
 
               case 2:
-                meals = _context2.sent;
-                _context2.next = 5;
-                return Promise.all(meals.rows.map(function () {
-                  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(meal) {
-                    var result;
-                    return regeneratorRuntime.wrap(function _callee$(_context) {
-                      while (1) {
-                        switch (_context.prev = _context.next) {
-                          case 0:
-                            _context.next = 2;
-                            return _QueryService2.default.aMealsFoods(meal.id);
-
-                          case 2:
-                            result = _context.sent;
-                            return _context.abrupt('return', { id: meal.id, name: meal.name, foods: result.rows });
-
-                          case 4:
-                          case 'end':
-                            return _context.stop();
-                        }
-                      }
-                    }, _callee, _this);
-                  }));
-
-                  return function (_x) {
-                    return _ref2.apply(this, arguments);
-                  };
-                }()));
+                result = _context.sent;
+                sorted_result = result.rows.sort(function (a, b) {
+                  return a.id - b.id;
+                });
+                return _context.abrupt('return', sorted_result);
 
               case 5:
-                meal_foods = _context2.sent;
-                return _context2.abrupt('return', meal_foods.sort(function (a, b) {
-                  return a.id - b.id;
-                }));
-
-              case 7:
               case 'end':
-                return _context2.stop();
+                return _context.stop();
             }
           }
-        }, _callee2, this);
+        }, _callee, this);
       }));
 
       function getAllMeals() {
@@ -88,24 +57,24 @@ var Meal = function () {
   }, {
     key: 'getMealAndFoods',
     value: function () {
-      var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(meal_id) {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(meal_id) {
         var result, meal_foods;
-        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
-                _context3.next = 2;
+                _context2.next = 2;
                 return _QueryService2.default.aMealAndAllItsFoods(meal_id);
 
               case 2:
-                result = _context3.sent;
+                result = _context2.sent;
 
                 if (result.rowCount) {
-                  _context3.next = 7;
+                  _context2.next = 7;
                   break;
                 }
 
-                return _context3.abrupt('return', { status: 404, data: { error: 'Meal not found' } });
+                return _context2.abrupt('return', { status: 404, data: { error: 'Meal not found' } });
 
               case 7:
                 meal_foods = result.rows.map(function (row) {
@@ -115,18 +84,18 @@ var Meal = function () {
                     calories: row.calories
                   };
                 });
-                return _context3.abrupt('return', { status: 200, data: { id: result.rows[0].meal_id, name: result.rows[0].meal_name, foods: meal_foods } });
+                return _context2.abrupt('return', { status: 200, data: { id: result.rows[0].meal_id, name: result.rows[0].meal_name, foods: meal_foods } });
 
               case 9:
               case 'end':
-                return _context3.stop();
+                return _context2.stop();
             }
           }
-        }, _callee3, this);
+        }, _callee2, this);
       }));
 
-      function getMealAndFoods(_x2) {
-        return _ref3.apply(this, arguments);
+      function getMealAndFoods(_x) {
+        return _ref2.apply(this, arguments);
       }
 
       return getMealAndFoods;

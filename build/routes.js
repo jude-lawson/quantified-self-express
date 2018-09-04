@@ -16,6 +16,10 @@ var _MealFoodsController = require('./controllers/MealFoodsController');
 
 var _MealFoodsController2 = _interopRequireDefault(_MealFoodsController);
 
+var _FavoriteFoodsController = require('./controllers/FavoriteFoodsController');
+
+var _FavoriteFoodsController2 = _interopRequireDefault(_FavoriteFoodsController);
+
 var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
@@ -29,7 +33,7 @@ router.get('/', function (request, response) {
   response.send('Quantified Self Express API');
 });
 
-// Foods
+// Foods & Favorite Foods
 router.get('/api/v1/foods', function (request, response) {
   _foods_controller2.default.index(request, response);
 });
@@ -44,6 +48,10 @@ router.patch('/api/v1/foods/:id', function (request, response) {
 });
 router.delete('/api/v1/foods/:id', function (request, response) {
   _foods_controller2.default.destroy(request, response);
+});
+
+router.get('/api/v1/favorite_foods', function (request, response) {
+  _FavoriteFoodsController2.default.index(request, response);
 });
 
 // Meals
