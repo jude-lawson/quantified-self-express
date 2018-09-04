@@ -140,7 +140,7 @@ var QueryService = function () {
             switch (_context5.prev = _context5.next) {
               case 0:
                 _context5.next = 2;
-                return _config.database.raw('SELECT foods.*, COUNT(foods.id) AS food_count FROM meal_foods\n                               INNER JOIN foods ON meal_foods.food_id = foods.id\n                               GROUP BY foods.id\n                               ORDER BY food_count DESC\n                               LIMIT 5');
+                return _config.database.raw('SELECT foods.*, COUNT(foods.id) AS food_count, array_agg(meals.name) AS meals_when_eaten\n                               FROM meal_foods\n                               INNER JOIN foods ON meal_foods.food_id = foods.id\n                               INNER JOIN meals ON meal_foods.meal_id = meals.id\n                               GROUP BY foods.id\n                               ORDER BY food_count DESC\n                               LIMIT 5');
 
               case 2:
                 return _context5.abrupt('return', _context5.sent);
