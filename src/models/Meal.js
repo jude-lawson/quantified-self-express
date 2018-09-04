@@ -4,7 +4,10 @@ import QueryService from '../services/QueryService';
 class Meal {
   static async getAllMeals() {
       let result = await QueryService.allMeals();
-      return result.rows
+      let sorted_result = result.rows.sort((a, b) => {
+        return a.id - b.id;
+      });
+      return sorted_result
   }
 
   static async getMealAndFoods(meal_id) {
