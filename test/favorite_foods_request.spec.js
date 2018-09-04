@@ -50,5 +50,8 @@ describe('Favorite Foods Requests', () => {
       expect(response.status).to.eq(200)
       expect(parsedResponse).to.deep.eq(favorite_foods);
     });
+
+    // Test limit
+    // Test no foods
   })
 })

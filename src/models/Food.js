@@ -48,6 +48,13 @@ class Food {
     }
     
   }
+
+  static async getFavorites() {
+    let favorite_foods = await QueryService.getFavoriteFoods();
+    debugger
+    
+    // Take result and get associated meals
+  }
 }
 
 export default Food;

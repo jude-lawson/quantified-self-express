@@ -22,6 +22,14 @@ class QueryService {
                                [updated_food_data.name, updated_food_data.calories, food_id])
   }
 
+  static async getFavoriteFoods() {
+    return await database.raw(`SELECT foods.*, COUNT(foods.id) AS food_count FROM meal_foods
+                               INNER JOIN foods ON meal_foods.food_id = foods.id
+                               GROUP BY foods.id
+                               ORDER BY food_count DESC
+                               LIMIT 5`)
+  }
+
   static async deleteFoodToMealAssociation(food_id) {
     return await database.raw('DELETE FROM meal_foods WHERE meal_foods.food_id=?', [food_id])
   }
