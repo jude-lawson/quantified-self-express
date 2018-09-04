@@ -1,21 +1,10 @@
 import chai, { expect } from 'chai';
 import fetch from 'node-fetch';
 
-
 import { yummly_app_id, yummly_app_key } from '../secrets';
 import banana_search_results from '../fixtures/for_tests/banana_search_results';
 import onion_soup_search_results from '../fixtures/for_tests/onion_soup_search_results';
 import banana_search_yummly from '../fixtures/for_tests/banana_search_yummly'
-
-// Stubs
-
-// const mock_banana_results = nock('http://api.yummly.com')
-//                               .get(`/v1/api/recipes?_app_id=${yummly_app_id}&_app_key=${yummly_app_key}&q=banana`)
-//                               .reply(200, banana_search_yummly)
-
-// const turing_mock = nock('http://backend.turing.io')
-//                       .get('/module4')
-//                       .reply(200, "hello")
 
 const environment = 'test';
 const configuration = require('../knexfile')[environment];
@@ -23,6 +12,7 @@ const database = require('knex')(configuration);
 
 
 describe('Recipe Search Requests', () => {
+  let mitm;
   beforeEach(async () => {
     await database.raw('DELETE FROM meal_foods')
     await database.raw('ALTER SEQUENCE meal_foods_id_seq RESTART WITH 1')
@@ -34,11 +24,6 @@ describe('Recipe Search Requests', () => {
     // Add Food
     await database.raw(`INSERT INTO foods (name, calories) VALUES (?, ?)`, ['Banana', 800])
     await database.raw(`INSERT INTO foods (name, calories) VALUES (?, ?)`, ['Onion Soup', 800])
-
-    // nock('http://backend.turing.io')
-    //   .get('/module4')
-    //   .reply(200, { "message": "hello" })
-    
   });
 
   context('GET /api/v1/foods/:id/recipes', () => {
