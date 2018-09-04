@@ -10,13 +10,21 @@ var _nodeFetch = require('node-fetch');
 
 var _nodeFetch2 = _interopRequireDefault(_nodeFetch);
 
-var _secrets = require('../../secrets');
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var yummly_app_id;
+var yummly_app_key;
+if (process.env.NODE_ENV === "test" || process.env.NODE_ENV === undefined) {
+  yummly_app_id = require('../../secrets').yummly_app_id;
+  yummly_app_key = require('../../secrets').yummly_app_key;
+} else {
+  yummly_app_id = process.env.YUMMLY_APP_ID;
+  yummly_app_id = process.env.YUMMLY_APP_KEY;
+}
 
 var banana_search_yummly = require('../../fixtures/for_tests/banana_search_yummly');
 var onion_soup_search_yummly = require('../../fixtures/for_tests/onion_soup_search_yummly');
@@ -56,7 +64,7 @@ var RecipeService = function () {
 
               case 8:
                 _context.next = 10;
-                return (0, _nodeFetch2.default)('http://api.yummly.com/v1/api/recipes?_app_id=' + (_secrets.yummly_app_id || process.env.YUMMLY_APP_ID) + '&_app_key=' + (_secrets.yummly_app_key || process.env.YUMMLY_APP_KEY) + '&q=' + food_name);
+                return (0, _nodeFetch2.default)('http://api.yummly.com/v1/api/recipes?_app_id=' + (yummly_app_id || process.env.YUMMLY_APP_ID) + '&_app_key=' + (yummly_app_key || process.env.YUMMLY_APP_KEY) + '&q=' + food_name);
 
               case 10:
                 response = _context.sent;

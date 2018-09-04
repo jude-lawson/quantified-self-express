@@ -1,5 +1,15 @@
 import fetch from 'node-fetch';
-import { yummly_app_id, yummly_app_key } from '../../secrets';
+
+var yummly_app_id;
+var yummly_app_key;
+if (process.env.NODE_ENV === "test" || process.env.NODE_ENV === undefined) {
+  yummly_app_id = require('../../secrets').yummly_app_id;
+  yummly_app_key =  require('../../secrets').yummly_app_key;
+} else {
+  yummly_app_id = process.env.YUMMLY_APP_ID;
+  yummly_app_id = process.env.YUMMLY_APP_KEY;
+}
+
 const banana_search_yummly = require('../../fixtures/for_tests/banana_search_yummly');
 const onion_soup_search_yummly = require('../../fixtures/for_tests/onion_soup_search_yummly');
 
