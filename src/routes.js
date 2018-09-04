@@ -2,6 +2,7 @@ import FoodsController from './controllers/foods_controller';
 import MealsController from './controllers/meals_controller';
 import MealFoodsController from './controllers/MealFoodsController';
 import FavoriteFoodsController from './controllers/FavoriteFoodsController';
+import RecipesController from './controllers/RecipesController';
 
 import express from 'express';
 const router = express.Router();
@@ -22,8 +23,11 @@ router.get('/api/v1/favorite_foods', (request, response) => { FavoriteFoodsContr
 router.get('/api/v1/meals', (request, response) => { MealsController.index(request, response); });
 router.get('/api/v1/meals/:meal_id/foods', (request, response) => { MealsController.show(request, response) });
 
-//MealFoods
+// MealFoods
 router.post('/api/v1/meals/:meal_id/foods/:id', (request, response) => { MealFoodsController.create(request, response) });
 router.delete('/api/v1/meals/:meal_id/foods/:id', (request,response) => { MealFoodsController.destroy(request, response) });
+
+// Recipes
+router.get('/api/v1/foods/:id/recipes', (request, response) => { RecipesController.show(request, response) });
 
 export default router;

@@ -20,6 +20,10 @@ var _FavoriteFoodsController = require('./controllers/FavoriteFoodsController');
 
 var _FavoriteFoodsController2 = _interopRequireDefault(_FavoriteFoodsController);
 
+var _RecipesController = require('./controllers/RecipesController');
+
+var _RecipesController2 = _interopRequireDefault(_RecipesController);
+
 var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
@@ -62,12 +66,17 @@ router.get('/api/v1/meals/:meal_id/foods', function (request, response) {
   _meals_controller2.default.show(request, response);
 });
 
-//MealFoods
+// MealFoods
 router.post('/api/v1/meals/:meal_id/foods/:id', function (request, response) {
   _MealFoodsController2.default.create(request, response);
 });
 router.delete('/api/v1/meals/:meal_id/foods/:id', function (request, response) {
   _MealFoodsController2.default.destroy(request, response);
+});
+
+// Recipes
+router.get('/api/v1/foods/:id/recipes', function (request, response) {
+  _RecipesController2.default.show(request, response);
 });
 
 exports.default = router;
