@@ -3,11 +3,13 @@
   "foods": [
     {
       "name": "Cookies",
-      "calories": 900
+      "calories": 900,
+      "mealsWhenEaten": ["Snack", "Dinner"]
     },
     {
       "name": "Macaroons",
-      "calories": 1100
+      "calories": 1100,
+      "mealsWhenEaten": ["Snack", "Dinner"]
     }
   ]
 }
