@@ -12,7 +12,7 @@
     "start:debug": "nodemon --exec yarn run babel-node --inspect -- ./src/app.js",
     "debug": "nodemon --exec yarn run babel-node --inspect -- ./src/app.js",
     "debug:test": "export NODE_ENV=test && nodemon --exec yarn run babel-node --inspect -- ./src/app.js",
-    "test": "sleep 1 && mocha --require babel-polyfill --require babel-register --exit",
+    "test": "sleep 1 && mocha --require babel-polyfill --require babel-register --exit && echo 'Did you remember to rebuild for production?'",
     "test:notime": "sleep 1 && mocha --require babel-polyfill --require babel-register --no-timeouts --exit"
   },
   "dependencies": {
