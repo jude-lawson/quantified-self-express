@@ -22,7 +22,7 @@ class QueryService {
                                [updated_food_data.name, updated_food_data.calories, food_id])
   }
 
-  static async getFavoriteFoods() {
+  static async getFoodCounts() {
     return await database.raw(`SELECT foods.*, COUNT(foods.id) AS food_count FROM meal_foods
                                INNER JOIN foods ON meal_foods.food_id = foods.id
                                GROUP BY foods.id

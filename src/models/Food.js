@@ -50,10 +50,14 @@ class Food {
   }
 
   static async getFavorites() {
-    let favorite_foods = await QueryService.getFavoriteFoods();
-    debugger
-    
-    // Take result and get associated meals
+    let result = await QueryService.getFoodCounts();
+    let maxTimesEaten = result.rows[0].food_count
+    let mostPopular = result.rows.filter((food, _index, rows) => {
+      return food.food_count === maxTimesEaten;
+    }).map((popularFood) => {
+      return { name: popularFood.name, calories: parseInt(popularFood.calories) }
+    });
+    return { status: 200, data: { timesEaten: parseInt(maxTimesEaten), foods: mostPopular }}
   }
 }
 
