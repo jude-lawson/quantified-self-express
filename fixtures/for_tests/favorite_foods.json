@@ -1,0 +1,13 @@
+{
+  "timesEaten": 2,
+  "foods": [
+    {
+      "name": "Cookies",
+      "calories": 900
+    },
+    {
+      "name": "Macaroons",
+      "calories": 1100
+    }
+  ]
+}
