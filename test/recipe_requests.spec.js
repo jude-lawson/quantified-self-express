@@ -12,7 +12,6 @@ const database = require('knex')(configuration);
 
 
 describe('Recipe Search Requests', () => {
-  let mitm;
   beforeEach(async () => {
     await database.raw('DELETE FROM meal_foods')
     await database.raw('ALTER SEQUENCE meal_foods_id_seq RESTART WITH 1')
